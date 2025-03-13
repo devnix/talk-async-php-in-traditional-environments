@@ -1,0 +1,12 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+
+examples_external_services:
+    resource:
+        path: ../examples/01-external-services/
+        namespace: App\Example\ExternalServices
+    type: attribute
+    prefix: external-services
