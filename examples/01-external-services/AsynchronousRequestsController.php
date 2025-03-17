@@ -24,15 +24,15 @@ class AsynchronousRequestsController
         $responses = [];
 
         $this->stopwatch->start('Request 1');
-        $responses[] = $this->httpClient->request('GET', 'https://httpbin.org/get'); // async
+        $responses[] = $this->httpClient->request('GET', 'http://localhost/endpoint'); // async
         $this->stopwatch->stop('Request 1');
 
         $this->stopwatch->start('Request 2');
-        $responses[] = $this->httpClient->request('GET', 'https://httpbin.org/get'); // async
+        $responses[] = $this->httpClient->request('GET', 'http://localhost/endpoint'); // async
         $this->stopwatch->stop('Request 2');
 
         $this->stopwatch->start('Request 3');
-        $responses[] = $this->httpClient->request('GET', 'https://httpbin.org/get'); // async
+        $responses[] = $this->httpClient->request('GET', 'http://localhost/endpoint'); // async
         $this->stopwatch->stop('Request 3');
 
         foreach ($responses as $response) {

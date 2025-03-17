@@ -25,15 +25,15 @@ class ReactRequestsController
         $browser = new Browser();
 
         $this->stopwatch->start('Request 1');
-        $responses[] = $browser->get('https://httpbin.org/get'); // async
+        $responses[] = $browser->get('http://localhost/endpoint'); // async
         $this->stopwatch->stop('Request 1');
 
         $this->stopwatch->start('Request 2');
-        $responses[] = $browser->get('https://httpbin.org/get'); // async
+        $responses[] = $browser->get('http://localhost/endpoint'); // async
         $this->stopwatch->stop('Request 2');
 
         $this->stopwatch->start('Request 3');
-        $responses[] = $browser->get('https://httpbin.org/get'); // async
+        $responses[] = $browser->get('http://localhost/endpoint'); // async
         $this->stopwatch->stop('Request 3');
 
         $responses = all($responses); // wraps the three promises into one, that resolves when all the promises are resolved

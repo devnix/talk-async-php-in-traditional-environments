@@ -10,3 +10,10 @@ examples_external_services:
         namespace: App\Example\ExternalServices
     type: attribute
     prefix: external-services
+
+examples_massive_hydration:
+    resource:
+        path: ../examples/02-massive-hydration/
+        namespace: App\Example\MassiveHydration
+    type: attribute
+    prefix: massive-hydration

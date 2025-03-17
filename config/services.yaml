@@ -23,9 +23,21 @@ services:
     App\Example\ExternalServices\:
         resource: '../examples/01-external-services/'
         tags: ['controller.service_arguments']
+    App\Example\MassiveHydration\:
+        resource: '../examples/02-massive-hydration/'
+        tags: ['controller.service_arguments']
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
     Amp\Http\Client\HttpClient:
         factory: ['Amp\Http\Client\HttpClientBuilder', 'buildDefault']
+
+    Amp\Mysql\MysqlConfig:
+        factory: [null, 'fromString']
+        arguments:
+            - '%env(AMPHP_DATABASE_URL)%'
+
+    Amp\Mysql\MysqlConnectionPool:
+        arguments:
+            - '@Amp\Mysql\MysqlConfig'
