@@ -17,3 +17,10 @@ examples_massive_hydration:
         namespace: App\Example\MassiveHydration
     type: attribute
     prefix: massive-hydration
+
+examples_query_stream:
+    resource:
+        path: ../examples/03-query-stream/
+        namespace: App\Example\QueryStream
+    type: attribute
+    prefix: query-stream

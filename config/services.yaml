@@ -26,6 +26,9 @@ services:
     App\Example\MassiveHydration\:
         resource: '../examples/02-massive-hydration/'
         tags: ['controller.service_arguments']
+    App\Example\QueryStream\:
+        resource: '../examples/03-query-stream/'
+        tags: ['controller.service_arguments']
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
@@ -41,3 +44,7 @@ services:
     Amp\Mysql\MysqlConnectionPool:
         arguments:
             - '@Amp\Mysql\MysqlConfig'
+
+    React\Mysql\MysqlClient:
+        arguments:
+            - '%env(REACT_DATABASE_URL)%'
