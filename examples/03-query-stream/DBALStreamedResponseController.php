@@ -35,6 +35,6 @@ class DBALStreamedResponseController
             echo json_encode($row).PHP_EOL;
         }
 
-        echo json_encode(['peak_memory_usage' => memory_get_usage() * 0.000001.'MB']);
+        echo json_encode(['peak_memory_usage' => Helper::getMemoryUsage()]);
     }
 }
