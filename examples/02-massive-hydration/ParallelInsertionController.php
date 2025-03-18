@@ -24,8 +24,9 @@ class ParallelInsertionController
         assert($amount > 0);
         assert($concurrency > 0);
 
-        Pipeline::fromIterable(range(1, $amount))
+        $pipeline = Pipeline::fromIterable($this->counter($amount)(...))
             ->concurrent($concurrency)
+            ->unordered() // Results may be consumed eagerly and out of order
             ->map(function () {
                 $customer = new Customer(
                     'Foo',
@@ -35,9 +36,24 @@ class ParallelInsertionController
                 );
 
                 $this->customerRepository->save($customer);
-            })
-            ->toArray();
+            });
+
+        iterator_apply($pipeline, fn () => true);
 
         return new Response('<html><body></body></html>');
+    }
+
+    /**
+     * @param positive-int $max
+     *
+     * @return \Closure(): \Generator<void, void, int, void>
+     */
+    private function counter(int $max): \Closure
+    {
+        return function () use ($max) {
+            for ($i = 0; $i < $max; $i++) {
+                yield $i;
+            }
+        };
     }
 }
