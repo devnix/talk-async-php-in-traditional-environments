@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello IndexController!</title>
+    </head>
+    <body>
+        <h1>Async PHP in traditional environments examples</h1>
+
+        <section>
+            <h2>External services</h2>
+            <ul>
+                <li><a href="{{ path('app_example_externalservices_synchronousrequests__invoke') }}">Synchronous requests</a></li>
+                <li><a href="{{ path('app_example_externalservices_asynchronousrequests__invoke') }}">Asynchronous requests</a></li>
+                <li><a href="{{ path('app_example_externalservices_reactrequests__invoke') }}">ReactPHP requests</a></li>
+            </ul>
+        </section>
+        <section>
+            <h2>Massive hydration</h2>
+            <ul>
+                <li><a href="{{ path('app_example_massivehydration_sequentialinsertion__invoke', {amount: 1000}) }}">Sequential insertion (1k)</a></li>
+                <li><a href="{{ path('app_example_massivehydration_parallelinsertion__invoke', {amount: 1000, concurrency: 10}) }}">Parallel insertion (1k x 10 workers)</a></li>
+                <li><a href="{{ path('app_example_massivehydration_parallelinsertion__invoke', {amount: 1000, concurrency: 50}) }}">Parallel insertion (1k x 50 workers)</a></li>
+                <li><a href="{{ path('app_example_massivehydration_sequentialinsertion__invoke', {amount: 10000}) }}">Sequential insertion (10k) (! ~3m)</a></li>
+                <li><a href="{{ path('app_example_massivehydration_parallelinsertion__invoke', {amount: 10000, concurrency: 10}) }}">Parallel insertion (10k x 10 workers)</a></li>
+                <li><a href="{{ path('app_example_massivehydration_parallelinsertion__invoke', {amount: 10000, concurrency: 50}) }}">Parallel insertion (10k x 50 workers)</a></li>
+            </ul>
+        </section>
+        <section>
+            <h2>Query stream</h2>
+            <ul>
+                <li><a href="{{ path('app_example_querystream_dbalfetchallresponse__invoke') }}">DBAL fetch all response</a></li>
+                <li><a href="{{ path('app_example_querystream_dbalstreamedresponse__invoke') }}">DBAL streamed response</a></li>
+                <li><a href="{{ path('app_example_querystream_reactstreamedresponse__invoke') }}">React streamed response</a></li>
+                <li><a href="{{ path('app_example_querystream_reactfibersstreamedresponse__invoke') }}">React fibers streamed response</a></li>
+            </ul>
+        </section>
+    </body>
+</html>
