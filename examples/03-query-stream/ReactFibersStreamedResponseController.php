@@ -2,7 +2,7 @@
 
 namespace App\Example\QueryStream;
 
-use React\EventLoop\Loop;
+use App\ReactStreamToGenerator;
 use React\Mysql\MysqlClient;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -30,38 +30,14 @@ class ReactFibersStreamedResponseController
 
     private function stream(): void
     {
-        foreach ($this->queryStream(Helper::SLOW_QUERY) as $row) {
+        $stream = $this->mysqlClient->queryStream(Helper::SLOW_QUERY);
+
+        $data = new ReactStreamToGenerator($stream);
+
+        foreach ($data->getGenerator() as $row) {
             echo json_encode($row) . PHP_EOL;
         }
 
         echo json_encode(['peak_memory_usage' => Helper::getMemoryUsage()]);
-    }
-
-    private function queryStream(string $query): iterable
-    {
-        // Thanks, Claude!
-
-        $fiber = new Fiber(function (string $query) {
-            $stream = $this->mysqlClient->queryStream($query);
-
-            $stream->on('data', function ($row) {
-                Fiber::suspend($row);
-            });
-
-            $stream->on('end', function () {
-                Fiber::suspend(null);
-            });
-
-            // if not started explicitly, the loop will start when Symfony finishes,
-            // and the memory usage will be calculated first
-            Loop::run();
-        });
-
-        $row = $fiber->start($query);
-
-        while ($row !== null) {
-            yield $row;
-            $row = $fiber->resume();
-        }
     }
 }
